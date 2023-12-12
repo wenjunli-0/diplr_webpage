@@ -1,21 +1,20 @@
-# diplr_webpage
-the webpage for DIPLR project
-
-welcome to this webpage, the project site for DIPLR. 
+# Generalization through Diversity: Improving Unsupervised Environment Design
 
 <p align="center">
   <a href="https://example.com/">
     <img src="https://via.placeholder.com/72" alt="Logo" width=72 height=72>
   </a>
 
-  <h3 align="center">Logo</h3>
+  <h3 align="center">WenjunLi, PradeepVarakantham, DexunLi</h3>
 
   <p align="center">
-    Short description
+    Singapore Management University
     <br>
-    <a href="https://reponame/issues/new?template=bug.md">Report bug</a>
+    IJCAI-2023
+    <br>
+    <a href="https://www.ijcai.org/proceedings/2023/0601.pdf">[Paper]</a>
     ·
-    <a href="https://reponame/issues/new?template=feature.md&labels=feature">Request feature</a>
+    <a href="https://reponame/issues/new?template=feature.md&labels=feature">[Codes]</a>
   </p>
 </p>
 

@@ -27,12 +27,12 @@
 
 ## Background
 To train generalizable RL agents, researchers recently proposed the Unsupervised Environment Design (UED), which formulates a teacher-student framework, where the teacher creates numerous environments to train the student so that the student will be robust to unseen scenarios. UED aims to find out what are the best training environments given the student current policy. <br>
-<img src="figures/UED_overview.png" alt="UED Overview" width=50% align=center>
+![image](figures/UED_overview.png#pic_center)
 
 
 ## Method
-Some text
-![image](figures/UED_overview.png)
+Some text <br>
+<img src=figures/UED_overview.png width=60% />
 
 - Instruction 1
 - Instruction 2

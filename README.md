@@ -16,6 +16,7 @@
 
 
 ## Introduction
+<img src="figures/diplr_overview.png">
 - [Quick start](#quick-start)
 - [Status](#status)
 - [What's included](#whats-included)

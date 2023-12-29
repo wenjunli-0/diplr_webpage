@@ -22,9 +22,9 @@ To train generalizable RL agents, researchers recently proposed the Unsupervised
 ![image](figures/UED_overview.png#pic_center)
 
 #### Regret
-The leading algorithms in UED all rely on the *regret* notion, which is defined as the difference between the agent's optimal performance $V^\*(\pi)$ and current actual performance $\mathbb{E}[V(\pi)]$. The optimal performance and actual performance are captured by the maximum return and average return in PAIRED<sup>[1]</sup>. <br>
+The leading algorithms in UED all rely on the *regret* notion, which is defined as the difference between the agent's optimal performance and current actual performance. The pioneering paper in UED, PAIRED<sup>[1]</sup>, rollouts the agent policy in the environment (denoted by $\theta$) and collect multiple trajectories. The regret is approximated as the difference between the maximum return and the average return. <br>
 $$regret^{\theta}(\pi) \approx \max_{\tau \sim \pi} V^{\theta}(\tau) - \mathbb{E}_{\tau \sim \pi} V^{\theta}(\tau)$$
-
+![image](figures/regret_demo.png#pic_center)
 
 
 ## Method

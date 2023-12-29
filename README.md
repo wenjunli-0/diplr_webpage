@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://example.com/">
-    <img src="https://github.com/wenjunli-0/diplr_webpage/blob/main/figures/algo_pipeline.png" alt="Algorithm Pipeline" width=600>
+    <img src="https://github.com/wenjunli-0/diplr_webpage/blob/main/figures/algo_pipeline.png" alt="Algorithm Pipeline" width=60%>
   </a>
 
   <h3 align="center">WenjunLi, PradeepVarakantham, DexunLi</h3>
@@ -28,6 +28,10 @@
 - [Creators](#creators)
 - [Thanks](#thanks)
 - [Copyright and license](#copyright-and-license)
+
+## Background
+To train generalizable RL agents, researchers recently proposed the Unsupervised Environment Design (UED), which formulates a teacher-student framework, where the teacher creates numerous environments to train the student so that the student will be robust to unseen scenarios. UED aims to find out what are the best training environments given the student current policy. <br>
+<img title="UED Overview" src="./figures/UED_overview.png" alt="UED Overview" width=50% align=center>
 
 
 ## Method

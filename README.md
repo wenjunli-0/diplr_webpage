@@ -1,10 +1,7 @@
 # Generalization through Diversity: Improving Unsupervised Environment Design, IJCAI-2023
 
 <p align="center">
-    <img src="figures/diplr_overview.png" alt="Algorithm Pipeline" width=60%>
-
   <h3 align="center">WenjunLi, PradeepVarakantham, DexunLi</h3>
-
   <p align="center">
     Singapore Management University
     <br>
@@ -16,7 +13,7 @@
 
 
 ## Introduction
-<img src="figures/diplr_overview.png">
+<img src="figures/diplr_overview.png" width=60%>
 - [Quick start](#quick-start)
 - [Status](#status)
 - [What's included](#whats-included)

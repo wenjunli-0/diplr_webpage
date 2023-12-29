@@ -24,7 +24,7 @@ To train generalizable RL agents, researchers recently proposed the Unsupervised
 ### Regret
 The leading algorithms in UED all rely on the *regret* notion, which is defined as the difference between the agent's optimal performance and current actual performance. The pioneering paper in UED, PAIRED<sup>[1]</sup>, rollouts the agent policy in the environment (denoted by $\theta$) and collect multiple trajectories. The regret is approximated as the difference between the maximum return and the average return. <br>
 $$regret^{\theta}(\pi) \approx \max_{\tau \sim \pi} V^{\theta}(\tau) - \mathbb{E}_{\tau \sim \pi} V^{\theta}(\tau)$$
-![image](figures/regret_demo.png)
+![image](figures/regret_demo_small.png)
 
 The teacher in UED will generate<sup>[1]</sup> or replay<sup>[2]</sup> high-regret environments, and the student will learn in the environments provided by the teacher. By iteratively repeating such interactions between teacher and student, the student gradually accumulates experiences and generalizes to unseen scenarios. 
 
@@ -41,12 +41,12 @@ Assume two environments, denoted by $\theta^1$ and $\theta^2$. We want to calcul
 - There can be stochasticity in the level that is not captured by the parameters of the level. For instance, the Bipedal-Walker domain has multiple free parameters controlling the terrain. Because of the existence of stochasticity in the level generation process, two levels could be very different while we have near-zero distance measurement given their environment parameter vectors;
 - Distance between environment parameters requires normalization in each parameter dimension and is domain-specific.
 
-Since we collect several trajectories within current levels when approximating the regret value, we can naturally get the state-action distributions induced by the current policy. Therefore, we propose to evaluate similarity on the different levels based on the distance between occupancy distributions of the current student policy. The hypothesis is that if the levels are similar, then the trajectories traversed by the student agent within the level will have similar state-action distribution. 
-![image](figures/trajectory_distance_small.png)
+Since we collect several trajectories within current levels when approximating the regret value, we can naturally get the state-action distributions induced by the current policy. Therefore, we propose to evaluate similarity on the different levels based on the distance between occupancy distributions of the current student policy. The hypothesis is that if the levels are similar, then the trajectories traversed by the student agent within the level will have similar state-action distribution. <br>
+![image](figures/trajectory_distance_xsmall.png)
 
 
 ### Diversity Induced Prioritied Level Replay, DIPLR
-Our algorirthm maintains a buffer of high-potential environments for training. At each iteration, we either: (a) generate a new level to be added to the buffer; or (b) sample a mini-batch of levels for the student agent to train on. To increase diversity of the environment buffer, we add new environments to the buffer that have the highest value of this distance (amongst all the randomly generated levels). We can also combine this distance measure with regret when taking a decision to include a level in the buffer so that different and challenging levels are added. Instead of solely considering the diversity aspect of the environment buffer, we can also take learning potential into account by using regrets so that we will have an environment buffer that is not only filled up with diverse training environments but also challenging environments that continuously push the student. An overview of our proposed algorithm is shown below.
+Our algorithm maintains a buffer of high-potential environments for training. At each iteration, we either: (a) generate a new level to be added to the buffer; or (b) sample a mini-batch of levels for the student agent to train on. To increase the diversity of the environment buffer, we add new environments to the buffer that have the highest value of this distance (amongst all the randomly generated levels). We can also combine this distance measure with regret when taking a decision to include a level in the buffer so that different and challenging levels are added. Instead of solely considering the diversity aspect of the environment buffer, we can also take learning potential into account by using regrets so that we will have an environment buffer that is not only filled up with diverse training environments but also challenging environments that continuously push the student. An overview of our proposed algorithm is presented below.
 ![image](figures/algo_pipeline_small.png)
 
 

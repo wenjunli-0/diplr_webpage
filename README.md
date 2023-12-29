@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://example.com/">
-    <img src="https://via.placeholder.com/72" alt="Logo" width=72 height=72>
+    <img src="[https://via.placeholder.com/72](https://github.com/wenjunli-0/diplr_webpage/blob/main/figures/algo_pipeline.png)" alt="Logo" width=300 height=200>
   </a>
 
   <h3 align="center">WenjunLi, PradeepVarakantham, DexunLi</h3>

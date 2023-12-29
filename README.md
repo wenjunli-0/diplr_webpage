@@ -24,20 +24,34 @@ To train generalizable RL agents, researchers recently proposed the Unsupervised
 #### Regret
 The leading algorithms in UED all rely on the *regret* notion, which is defined as the difference between the agent's optimal performance and current actual performance. The pioneering paper in UED, PAIRED<sup>[1]</sup>, rollouts the agent policy in the environment (denoted by $\theta$) and collect multiple trajectories. The regret is approximated as the difference between the maximum return and the average return. <br>
 $$regret^{\theta}(\pi) \approx \max_{\tau \sim \pi} V^{\theta}(\tau) - \mathbb{E}_{\tau \sim \pi} V^{\theta}(\tau)$$
-![image](figures/regret_demo.png#pic_center)
+![image](figures/regret_demo.png)
 
+The teacher agent in UED will iteratively generate<sup>[1]</sup> or replay<sup>[2]</sup> high-regret environments, and the student agent will learn in the environments provided by the teacher. 
 
 ## Method
-Some text <br>
-<img src=figures/UED_overview.png width=60% />
+Although the algorithms in UED have improved the agent's generalization performance significantly by utilizing regret. However, to generalize better, it is not sufficient to train the agent only on high-regret/GAE levels. We can have multiple high-regret levels, which are very “similar” to each other and the agent does not learn a lot from being trained on similar levels. Thus, levels also have to be sufficiently “different”, so that the agent can gain more perspective on different challenges that it can face.
 
-- Instruction 1
-- Instruction 2
-- Instruction 3
+#### Distance between Environments
+We quantify the environment diversity by comparing it to other environments. 
+![image](figures/distance_demo.png)
+
+
+#### Trajectory Distance
+We quantify the environment diversity by comparing it to other environments. 
+![image](figures/trajectory_distance.png)
+
+
+#### Diversity Induced Prioritied Level Replay, DIPLR
+We build our algorithm, DIPLR. 
+![image](figures/algo_pipeline.png)
 
 
 ## Experiment Results
-Here goes all the budgets
+Results on three highly distinct benchmark domains. 
+
+- Minigrid
+- Bipedal-Walker
+- Car-Racing
 
 
 ## Acknowledgement
@@ -47,3 +61,4 @@ This research/project is supported by the National Research Foundation Singapore
 ## Reference
 <div id="paired"></div>
 - [1] [Emergent Complexity and Zero-shot Transfer via Unsupervised Environment Design](https://arxiv.org/abs/2012.02096)
+- [2] [Prioritized Level Replay](https://arxiv.org/abs/2010.03934)

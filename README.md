@@ -1,16 +1,12 @@
-# Generalization through Diversity: Improving Unsupervised Environment Design
+# Generalization through Diversity: Improving Unsupervised Environment Design, IJCAI-2023
 
 <p align="center">
-  <a href="https://example.com/">
-    <img src="figures/algo_pipeline.png" alt="Algorithm Pipeline" width=60%>
-  </a>
+    <img src="figures/diplr_overview.png" alt="Algorithm Pipeline" width=60%>
 
   <h3 align="center">WenjunLi, PradeepVarakantham, DexunLi</h3>
 
   <p align="center">
     Singapore Management University
-    <br>
-    IJCAI-2023
     <br>
     <a href="https://www.ijcai.org/proceedings/2023/0601.pdf">[Paper]</a>
     ·

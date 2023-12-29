@@ -36,7 +36,7 @@ To train generalizable RL agents, researchers recently proposed the Unsupervised
 
 ## Method
 Some text
-![image](https://github.com/wenjunli-0/diplr_webpage/blob/main/figures/UED_overview.png)
+![image](https://raw.githubusercontent.com/wenjunli-0/diplr_webpage/blob/main/figures/UED_overview.png)
 
 
 - Instruction 1

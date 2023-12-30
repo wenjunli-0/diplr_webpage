@@ -50,43 +50,41 @@ We employ the Wasserstein distance described to calculate the distance between t
 
 
 ### 3.2 Diversity Induced Prioritied Level Replay, DIPLR
-Our algorithm maintains a buffer of high-potential environments for training. At each iteration, we either: (a) generate a new environment to be added to the buffer; or (b) sample a mini-batch of environments for the student agent to train on. To increase the diversity of the environment buffer, we add new environments to the buffer that have the highest value of this distance. Instead of solely considering the diversity aspect of the environment buffer, we can also take learning potential into account by using regrets so that we will have an environment buffer that is not only filled up with diverse training environments but also challenging environments that continuously push the student. An overview of our proposed algorithm is presented below. <br>
+Our algorithm maintains a buffer of high-potential environments for training. At each iteration, we either: (a) generate a new environment to be added to the buffer; or (b) sample a mini-batch of environments for the student agent to train on. To increase the diversity of the environment buffer, we add new environments to the buffer that have the highest value of this distance. Instead of solely considering the diversity aspect of the environment buffer<sup>[2]</sup>, we can also take learning potential into account by using regrets so that we will have an environment buffer that is not only filled up with diverse training environments but also challenging environments that continuously push the student. An overview of our proposed algorithm is presented below. <br>
 ![image](figures/algo_pipeline_small.png)
 
 
 ## 4. Experiment Results
-We empirically demonstrate the versatility and effectiveness of DIPLR in comparison to leading UED algorithms on three highly distinct benchmark domains. In short, DIPLR outperforms the exsiting baselines in all testing scenarios.
-
-For each domain, we provide the students' detailed performance on a variety of testing environments as well as the standardized interquartile mean (IQM) and optimality gap (OG) plots<sup>[3]</sup>. 
+We empirically demonstrate the versatility and effectiveness of DIPLR in comparison to leading UED algorithms on three highly distinct benchmark domains. In short, DIPLR outperforms the exsiting baselines in all testing scenarios. For each domain, we provide the students' detailed performance on a variety of testing environments as well as the standardized interquartile mean (IQM) and optimality gap (OG) plots<sup>[3]</sup>. 
 
 ### 4.1 Minigrid
 Minigrid is a good benchmark due to its easy interpretability and customizability. In our experimental settings, the teacher has a maximum budget of 60 block cells and can place the start position and goal position elsewhere. The student is required to navigate to the goal cell within 256 steps and it receives rewards=(num-steps/256) upon success, otherwise, it receives zero rewards. 
 
-We evaluate the students trained by UED algorithms on "out-of-distribution" (OOD) testing environments, i.e., the mazes created by humans. The below figure provides the zero-shot transfer performance in eight human-designed test environments. The plots are based on the median and interquartile range of solved rates across 10 independent experiments. <br>
+After training the students with various UED algorithms until convergence, we evaluate them on "out-of-distribution" (OOD) testing environments, i.e., the mazes created by humans. The below figure provides the zero-shot transfer performance in eight human-designed test environments. The plots are based on the median and interquartile range of solved rates across 10 independent experiments. <br>
 ![image](figures/results_mg.png) <br>
 
-The below figure presents the aggregate zero-shot OOD test performance in Minigrid Domain across 10 independent runs. Higher IQM scores and lower optimality gap are better. <br>
-![image](figures/results_mg_iqm.png)
+The below figure presents the aggregate test performance in Minigrid Domain across 10 independent runs. Higher IQM scores and lower optimality gap are better. <br>
+![image](figures/results_mg_iqm.png) <br>
 
 ### 4.2 Bipedal-Walker
-We also conduct a comprehensive comparison on the Bipedal-Walker domain and is popular in the community as it is a well-parameterized environment with eight variables (including ground roughness, the number of stair steps, min/max range of pit gap width, min/max range of stump height, and min/max range of stair height) conditioning the terrains and is thus straightforward to interpret. The teacher in Bipedal-Walker can specify the values of the eight environment parameters, but there will still be stochasticity in the generation of a particular level. As for the student, i.e., walker agent, it should determine the torques applied on its joints and is constrained by partial observability where it only knows its horizontal speed, vertical speed, angular speed, positions of joints, joints’ angular speed, etc. Six examples of test environments in Bipedal-Walker do- main. (a) BipedalWalker, (b) Hardcore, (c) Stair, (d) PitGap, (e) Stump, (f) Roughness. Note that these may not be the exact test en- vironment terrains but only extreme cases for demonstration. <br>
-![image](figures/bw_domain.png)
+We also conduct empirical study on Bipedal-Walker domain, which is popular in the community as it is a well-parameterized environment with eight variables (including ground roughness, the number of stair steps, min/max range of pit gap width, min/max range of stump height, and min/max range of stair height) conditioning the terrains. The teacher in Bipedal-Walker can specify the values of the eight environment parameters, but there will still be stochasticity in the generation of a particular level. As for the student, i.e., walker agent, it should determine the torques applied on its joints and is constrained by partial observability where it only knows its horizontal speed, vertical speed, angular speed, positions of joints, joints’ angular speed, etc. Six examples of test environments in Bipedal-Walker do- main. (a) BipedalWalker, (b) Hardcore, (c) Stair, (d) PitGap, (e) Stump, (f) Roughness. Note that these may not be the exact test en- vironment terrains but only extreme cases for demonstration. <br>
+![image](figures/bw_domain.png) <br>
 
-Performance on test environments during the training period over five independent experiments (mean and standard error). <br>
-![image](figures/results_bw.png)
+Various student's evaluation performance on the six test environments during the training period over five independent experiments (mean and standard error) is presented below. <br>
+![image](figures/results_bw.png) <br>
 
-Aggregate test performance over 10 runs in Bipedal- Walker domain. Higher IQM scores and lower optimality gap are better. <br>
-![image](figures/results_bw_iqm.png)
+The below figure provides the aggregate test performance over 10 runs in Bipedal- Walker domain. Higher IQM scores and lower optimality gap are better. <br>
+![image](figures/results_bw_iqm.png) <br>
 
 ### 4.3 Car-Racing
-To validate that our method is scalable and versatile, we further implement DIPLR on the Car-Racing environment, which is introduced by [Jiang et al., 2021a] and has been used in existing UED papers. In this domain, the teacher needs to create challenging racing tracks by using Be ́zier curves (via 12 control points) and the student drives on the track under continuous control with dense reward. A zoom-in illustration of the track is shown in Figure 8 (a). After training the stu- dent for around 3k PPO updates (∼ 5.5M steps), we evaluate the student agent in four test scenarios, among which three challenging F1-tracks existing in the real world and the other one is a basic vanilla track. Note that these tracks are absolutely OOD because they cannot be defined with just 12 control points, for example, the F1-Singapore track in Figure 8 (c) has more than 20 control points. Examples in Car-Racing domain. (a) A zoom-in snapshot of the car-racing track; (b) a track generated by domain randomiza- tion; (c) one of the test environments, F1-Singapore track <br>
-![image](figures/cr_domain.png)
+To validate that our method is scalable and versatile, we further implement DIPLR on the Car-Racing environment. In this domain, the teacher needs to create challenging racing tracks by using Bezier curves (via 12 control points) and the student drives on the track under continuous control with dense reward. A zoom-in illustration of the track is shown in the below figure (a). After training the students, we evaluate them in four test scenarios, among which three challenging F1-tracks existing in the real world and the other one is a basic vanilla track. Note that these tracks are absolutely OOD because they cannot be defined with just 12 control points, for example, the F1-Singapore track in the below figure (c) has more than 20 control points. <br>
+![image](figures/cr_domain.png) <br>
 
-Zero-Shot Transfer Performance in Car-Racing domain. <br>
-![image](figures/results_cr.png)
+Various student's evaluation performance on the four zero-Shot test environments during training period over five independent experiments (mean and standard error) is presented below. <br>
+![image](figures/results_cr.png) <br>
 
-Aggregate test performance over 10 independent runs in Car-Racing domain. <br>
-![image](figures/results_cr_iqm.png)
+The below figure presents the aggregate test performance over 10 independent runs in Car-Racing domain. <br>
+![image](figures/results_cr_iqm.png) <br>
 
 
 ## Acknowledgement

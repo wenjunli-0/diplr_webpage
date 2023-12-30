@@ -14,15 +14,15 @@
 
 ![image](figures/diplr_overview.png#pic_center)
 
-## Introduction
+## 1. Introduction
 Agent decision-making using Reinforcement Learning (RL) heavily relies on either a model or simulator of the environment (e.g., moving in an 8x8 maze with three rooms, or playing Chess on an 8x8 board). Due to this dependence, small changes in the environment (e.g., positions of obstacles in the maze, size of the board) can severely affect the effectiveness of the policy learned by the agent. To that end, existing work has proposed the Unsupervised Environment Design (UED) framework to train RL agents on an adaptive curriculum of environments (generated automatically) to improve performance on out-of-distribution (OOD) test scenarios. Specifically, existing research in UED has employed the potential for the agent to learn in an environment (captured using *regret*) as the key factor in selecting the next environment(s) to train the agent. However, such a mechanism can select similar environments (with a high potential to learn) thereby making agent training redundant in all but one of those environments. To that end, we provide a principled approach to adaptively identify diverse environments based on a novel distance measure relevant to environment design. We empirically demonstrate the versatility and effectiveness of our method in comparison to multiple leading approaches for unsupervised environment design on three distinct benchmark problems used in literature.
 
 
-## Background
-### Unsupervised Environment Design, UED
+## 2. Background
+### 2.1 Unsupervised Environment Design, UED
 To train generalizable RL agents, researchers recently proposed the Unsupervised Environment Design (UED), which formulates a teacher-student framework. In UED, the teacher creates numerous environments to train the student so that the student will be robust to unseen scenarios. The teacher takes the feedback from student to create environments that are adaptive to the student's current ability level. The teacher's objective is to improve the student's generalization performance across a variety of scenarios, including unseen scenarios. 
 
-### Regret
+### 2.2 Regret
 The leading algorithms in UED all rely on the *regret* notion, which is defined as the difference between the student's optimal performance and current actual performance. The pioneering paper, PAIRED<sup>[1]</sup>, rollouts the student policy in the environment (denoted by $\theta$) and collect multiple trajectories. The regret is approximated as the difference between the maximum return and the average return. <br>
 $$regret^{\theta}(\pi) \approx \max_{\tau \sim \pi} V^{\theta}(\tau) - \mathbb{E}_{\tau \sim \pi} V^{\theta}(\tau)$$
 
@@ -30,12 +30,12 @@ $$regret^{\theta}(\pi) \approx \max_{\tau \sim \pi} V^{\theta}(\tau) - \mathbb{E
 An illustration is provided in the above figure. In this maze, the optimal path is A and the student's actual path is B. We can use path A and path B to calculate the regret. In such a way, we collect environments and their associated regrets, and use them to train the teacher to create high-regret environments. By iteratively learning on high-regret environments, the student gradually accumulates experiences and generalizes to various scenarios. 
 
 
-## Method
+## 3. Method
 UED algorithms have improved the student's generalization performance significantly by utilizing regret. However, to generalize better, it is not sufficient to train the student only in high-regret environments. We can have multiple high-regret environments, that are very “similar” to each other and the student does not learn a lot from being trained in similar environments. Thus, environments also have to be sufficiently “different”, so that the student can gain more perspective on different challenges that it can face.
 
 To that end, in this paper, we introduce a diversity metric in UED, which is defined based on the distance between occupancy distributions associated with student trajectories from different environments. We then provide a principled method, referred to as **Diversity Induced Prioritized Level Replay** (DIPLR), to select environments with the diversity metric to provide better generalization performance than the state-of-the-art.
 
-### Distance between Environments
+### 3.1 Distance between Environments
 Assume we want to calculate the distance between two environments, denoted by $\theta_1$ and $\theta_2$. One potential option is to encode each environment using one of a variety of encoding methods (e.g., Variational Autoencoder) or using the parameters associated with the environment and then taking the distance between encodings of environments. However, such an approach has multiple major issues. <br>
 ![image](figures/distance_demo_small.png)
 
@@ -49,12 +49,12 @@ Since we collect several trajectories within current environments when approxima
 We employ the Wasserstein distance described to calculate the distance between two distributions from empirical samples.
 
 
-### Diversity Induced Prioritied Level Replay, DIPLR
+### 3.2 Diversity Induced Prioritied Level Replay, DIPLR
 Our algorithm maintains a buffer of high-potential environments for training. At each iteration, we either: (a) generate a new environment to be added to the buffer; or (b) sample a mini-batch of environments for the student agent to train on. To increase the diversity of the environment buffer, we add new environments to the buffer that have the highest value of this distance. Instead of solely considering the diversity aspect of the environment buffer, we can also take learning potential into account by using regrets so that we will have an environment buffer that is not only filled up with diverse training environments but also challenging environments that continuously push the student. An overview of our proposed algorithm is presented below.
 ![image](figures/algo_pipeline_small.png)
 
 
-## Experiment Results
+## 4. Experiment Results
 We empirically demonstrate the versatility and effectiveness of DIPLR in comparison to leading UED algorithms on three highly distinct benchmark domains. In short, DIPLR outperforms the exsiting baselines in all testing scenarios.
 
 - Minigrid
